@@ -35,7 +35,8 @@ _We're interested in your method and how you approach the problem just as much a
 
 Here's what you should strive for:
 
-- Good use of current Node.js & API design best practices.
+- Good use of current Node.js & Express.js
+- Good use of API design best practices.
 - Solid testing approach.
 - Extensible code.
 
