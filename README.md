@@ -49,7 +49,7 @@ Here's what you should strive for:
   - Write clear **documentation** on how it has been designed and how to run the code.
 
 ### Bonus
-  - **Use typescript.
+  - **Use typescript.**
   - Use of Sequelize ORM (https://sequelize.org/)
   - Provide proper unit tests.
   - Add a read only endpoint to fetch location information based off the user's address (use [NASA](https://api.nasa.gov/api.html) or [Mapbox](https://www.mapbox.com/api-documentation/) APIs)
