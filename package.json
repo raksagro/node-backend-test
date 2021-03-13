@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/ETomacheski/node-backend-test/issues"
   },
-  "homepage": "https://github.com/ETomacheski/node-backend-test#readme"
+  "homepage": "https://github.com/ETomacheski/node-backend-test#readme",
+  "dependencies": {
+    "git-commit-msg-linter": "^3.0.2"
+  }
 }
