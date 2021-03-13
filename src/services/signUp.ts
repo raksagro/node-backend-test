@@ -1,10 +1,5 @@
-interface HttpRequest {
-  body?: any
-}
-interface HttpResponse{
-  statusCode: number
-  body: any
-}
+import { HttpRequest } from "../protocols/HttpRequest-protocol";
+import { HttpResponse } from "../protocols/HttpResponse-protocol";
 
 export class SingUpService{
   
