@@ -6,9 +6,9 @@ describe('SignUp Service', () => {
 
     const userData = {
       body: {
-        dob: "any_dob",                    
-        address: "any_address",                
-        description: "any_description", 
+        dob: 'any_dob',                    
+        address: 'any_address',                
+        description: 'any_description', 
       }           
     }
 
@@ -16,4 +16,20 @@ describe('SignUp Service', () => {
 
     expect(response.statusCode).toBe(400)
   })
-});
+  test('Should return 200 valid data is provided', () => {
+    const sut = new SingUpService()
+
+    const userData = {
+      body: {
+        name: 'any_name',
+        dob: 'any_dob',                    
+        address: 'any_address',                
+        description: 'any_description', 
+      }           
+    }
+
+    const response = sut.handle(userData)
+
+    expect(response.statusCode).toBe(200)
+  })
+})
