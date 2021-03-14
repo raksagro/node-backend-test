@@ -1,7 +1,7 @@
 import { SingUpService } from "../src/services/signUp";
 
 describe('SignUp Service', () => {
-  test('Should return 400 if no name is provided ', () => {
+  test('Should return 400 if no name is provided ', async () => {
     const sut = new SingUpService()
 
     const userData = {
@@ -12,11 +12,11 @@ describe('SignUp Service', () => {
       }           
     }
 
-    const response = sut.handle(userData)
+    const response = await sut.handle(userData)
 
     expect(response.statusCode).toBe(400)
   })
-  test('Should return 200 valid data is provided', () => {
+  test('Should return 200 valid data is provided',async () => {
     const sut = new SingUpService()
 
     const userData = {
@@ -28,8 +28,9 @@ describe('SignUp Service', () => {
       }           
     }
 
-    const response = sut.handle(userData)
+    const response = await sut.handle(userData)
 
     expect(response.statusCode).toBe(200)
+    expect(response.body.id).toBeTruthy()
   })
 })
