@@ -4,7 +4,7 @@
   "description": "Be sure to read **all** of this document carefully, and follow the guidelines within.",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "cross-env NODE_ENV=test npx sequelize db:migrate &&  jest"
   },
   "repository": {
     "type": "git",
@@ -22,6 +22,7 @@
     "@types/sequelize": "^4.28.9",
     "@typescript-eslint/eslint-plugin": "^4.17.0",
     "@typescript-eslint/parser": "^4.17.0",
+    "cross-env": "^7.0.3",
     "eslint": "^7.22.0",
     "eslint-config-standard-with-typescript": "^20.0.0",
     "eslint-plugin-import": "^2.22.1",

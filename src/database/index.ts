@@ -1,19 +1,26 @@
-import Sequelize from 'sequelize';
+require('dotenv/config')
+import { Sequelize, Dialect } from 'sequelize'
+import database from '../config/database.js'
 
-import databaseConfig from '../config/database';
-
-class Database {
-  public connection: Sequelize.Sequelize;
-
-  constructor() {
-    this.init();
+const sequelize: Sequelize = new Sequelize(
+  {
+    dialect: 'mysql' as Dialect,
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false
+      }
+    },
+    username: database.username,
+    password: database.password,
+    host: database.host,
+    port: 3306,
+    database: database.database,
+    define: {
+      timestamps: true,
+      underscored: true
+    }
   }
+)
 
-  init(): void {
-    this.connection = new Sequelize.Sequelize(databaseConfig);
-  }
-}
-
-const database: Database = new Database();
-
-export default database;
+export default sequelize;

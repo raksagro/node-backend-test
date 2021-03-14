@@ -1,6 +1,11 @@
-require('dotenv/config')
+const path = require('path')
 
-module.exports = {
+const environment = process.env.NODE_ENV || 'dev'
+const envPath = path.join(__dirname, '../','../',environment + '.env')
+
+require('dotenv').config({ path: envPath })
+
+module.exports =  {
   dialect: 'mysql',
   dialectOptions: {
     ssl: {
