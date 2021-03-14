@@ -6,17 +6,19 @@ export class UpdateUser{
   
   async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
-    if (!httpRequest.body.id) return {
+    const userId = httpRequest.body.id
+    if (!userId) return {
       statusCode: 400,
       body: new Error('Missing param error: id')
     }
 
     await User.update(httpRequest.body, {
       where: {
-        id: httpRequest.body.id
+        id: userId
       },
     },)
-    const user = await User.findByPk(httpRequest.body.id, {
+    
+    const user = await User.findByPk(userId, {
       plain: true
     })
 
