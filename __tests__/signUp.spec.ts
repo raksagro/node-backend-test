@@ -1,5 +1,5 @@
-import User from "../src/models/user";
-import { SingUpService } from "../src/services/signUp";
+import User from "../src/models/user"
+import { SingUpService } from "../src/services/signUp"
 
 
 describe('SignUp Service', () => {
