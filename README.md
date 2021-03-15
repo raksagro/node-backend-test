@@ -1,15 +1,9 @@
 
-<div align="center">
-
-![Node_Badge][node_version_badge] ![Npm_Badge][npm_version_badge] ![React_Badge][web_react_badge] ![NodeJS_Badge][server_nodejs_badge] [![Javascript](https://badges.frapsoft.com/javascript/code/javascript.png?v=101)](https://github.com/ellerbrock/javascript-badges/)
-
-</div>
-
-<h3 align="center">
+<h1 align="center">
 
 Teste realizado para a vaga de backend Jr Racks
 
-</h3>
+</h1>
 
 
 ## **:computer: API NodeJS endpoints**
