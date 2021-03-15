@@ -1,0 +1,49 @@
+{
+  "name": "backend-test",
+  "version": "1.0.0",
+  "description": "Be sure to read **all** of this document carefully, and follow the guidelines within.",
+  "main": "index.js",
+  "scripts": {
+    "dev":"sucrase-node src/server.ts",
+    "build":"tsc",
+    "start":"node dist/src/server.js",
+    "test": "cross-env NODE_ENV=test npx sequelize db:migrate &&  jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ETomacheski/node-backend-test.git"
+  },
+  "author": "Eduardo Tomacheski",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ETomacheski/node-backend-test/issues"
+  },
+  "homepage": "https://github.com/ETomacheski/node-backend-test#readme",
+  "devDependencies": {
+    "@types/jest": "^26.0.20",
+    "@types/node": "^14.14.34",
+    "@types/sequelize": "^4.28.9",
+    "@typescript-eslint/eslint-plugin": "^4.17.0",
+    "@typescript-eslint/parser": "^4.17.0",
+    "cross-env": "^7.0.3",
+    "eslint": "^7.22.0",
+    "eslint-config-standard-with-typescript": "^20.0.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.3.1",
+    "git-commit-msg-linter": "^3.0.2",
+    "jest": "^26.6.3",
+    "sequelize-cli": "^6.2.0",
+    "ts-jest": "^26.5.3",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.2.3"
+  },
+  "dependencies": {
+    "@types/express": "^4.17.11",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mysql2": "^2.2.5",
+    "sequelize": "^6.5.0",
+    "sucrase": "^3.17.1"
+  }
+}
