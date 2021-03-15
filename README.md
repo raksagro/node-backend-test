@@ -4,7 +4,7 @@
 Teste realizado para a vaga de backend Jr Racks
 
 </h1>
-
+## Link da API: https://node-test-raks.herokuapp.com/
 
 ## **:computer: API NodeJS endpoints**
 
