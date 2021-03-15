@@ -4,7 +4,9 @@
   "description": "Be sure to read **all** of this document carefully, and follow the guidelines within.",
   "main": "index.js",
   "scripts": {
-    "start":"sucrase-node src/server.ts",
+    "dev":"sucrase-node src/server.ts",
+    "build":"tsc",
+    "start":"node dist/src/server.js",
     "test": "cross-env NODE_ENV=test npx sequelize db:migrate &&  jest"
   },
   "repository": {
