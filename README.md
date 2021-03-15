@@ -12,13 +12,29 @@ Teste realizado para a vaga de backend Jr Racks
 </h3>
 
 
-## **:computer: Tecnologias**
-
-#### API NodeJS endpoints
+## **:computer: API NodeJS endpoints**
 
   - **/user/:id** Get User
   - **/user/** Post Criar usuários
+    - dados
+      ```json
+        {
+          "name": "",
+          "address": "" ,
+          "dob": "",
+          "description": ""
+        }
+      ```
   - **/user/:id** Put atualizar dados do usuário
+    - dados
+      ```json
+        {
+          "name": "",
+          "address": "" ,
+          "dob": "",
+          "description": ""
+        }
+      ```
   - **/user/:id** Delete deletar usuário
 
 ## Arquivo .env
