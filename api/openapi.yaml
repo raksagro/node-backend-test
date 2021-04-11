@@ -23,7 +23,25 @@ paths:
       tags:
       - USERS
       summary: Create user
-      description: Create user into system
+      description: Create an user.<br><br>
+        Fields with * are mandatory to create an user <br>  
+        <ul>
+          <li> name* (string) - This field must contain the user's full name.</li>
+          <li> dob* (string) - This field must contain the user's birthday (date of birth).</li>
+          <li> address (object) - This field must contain an object with the user's address data with
+            the fields listed below</li>
+          <ul>
+            <li> zipCode (string) </li>
+            <li> street (string) </li>
+            <li> number (integer) </li>
+            <li> complement (string) </li>
+            <li> district (string) </li>
+            <li> city (string) </li>
+            <li> state (string) </li>
+            <li> country (string) </li>
+          </ul>
+          <li> description (string) - This field must be contain the user's description</li>
+        </ul>
       operationId: createUser
       requestBody:
         description: User created
@@ -43,44 +61,9 @@ paths:
     get:
       tags:
       - USERS
-      summary: Read users
-      description: Read all users
+      summary: Read all users
+      description: This method returns a list containing all users registered into system
       operationId: readUsers
-      parameters:
-      - name: initialDate
-        in: query
-        description: initial date string
-        required: false
-        style: form
-        explode: true
-        schema:
-          type: string
-          format: date-time
-      - name: finalDate
-        in: query
-        description: final date string
-        required: false
-        style: form
-        explode: true
-        schema:
-          type: string
-          format: date-time
-      - name: limit
-        in: query
-        description: limit integer
-        required: true
-        style: form
-        explode: true
-        schema:
-          type: integer
-      - name: offset
-        in: query
-        description: offset integer
-        required: true
-        style: form
-        explode: true
-        schema:
-          type: integer
       responses:
         "200":
           description: Users found
@@ -99,7 +82,7 @@ paths:
       tags:
       - USERS
       summary: Read user by ID
-      description: Read an user by his ID
+      description: This method returns an object containing a user registered into system by passing his ID
       operationId: readUserById
       parameters:
       - name: userId
@@ -127,8 +110,8 @@ paths:
     put:
       tags:
       - USERS
-      summary: Update user by ID
-      description: Update an user by his ID
+      summary: Update an user by ID
+      description: This method updates a user by passing only the fields that need to be changed.
       operationId: updateUser
       parameters:
       - name: userId
@@ -155,7 +138,10 @@ paths:
       tags:
       - USERS
       summary: Delete user by ID
-      description: Delete an user by his ID
+      description: This method deletes a user by passing his ID.<br><br>
+        <b>Be careful, be sure of what you're doing, this is not a completely safe deletion method,
+          because after deleting, the user cannot be recovered.
+        </b>
       operationId: deleteUser
       parameters:
       - name: userId

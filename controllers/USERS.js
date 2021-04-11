@@ -1,9 +1,7 @@
-'use strict';
+import utils from '../utils/writer.js';
+import USERS from '../service/USERSService';
 
-var utils = require('../utils/writer.js');
-var USERS = require('../service/USERSService');
-
-module.exports.createUser = function createUser (req, res, next, body) {
+export const createUser = function createUser (req, res, next, body) {
   USERS.createUser(body)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -13,7 +11,7 @@ module.exports.createUser = function createUser (req, res, next, body) {
     });
 };
 
-module.exports.deleteUser = function deleteUser (req, res, next, userId) {
+export const deleteUser = function deleteUser (req, res, next, userId) {
   USERS.deleteUser(userId)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -23,7 +21,7 @@ module.exports.deleteUser = function deleteUser (req, res, next, userId) {
     });
 };
 
-module.exports.readUserById = function readUserById (req, res, next, userId) {
+export const readUserById = function readUserById (req, res, next, userId) {
   USERS.readUserById(userId)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -33,7 +31,7 @@ module.exports.readUserById = function readUserById (req, res, next, userId) {
     });
 };
 
-module.exports.readUsers = function readUsers (req, res, next, limit, offset, initialDate, finalDate) {
+export const readUsers = function readUsers (req, res, next, limit, offset, initialDate, finalDate) {
   USERS.readUsers(limit, offset, initialDate, finalDate)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -43,7 +41,7 @@ module.exports.readUsers = function readUsers (req, res, next, limit, offset, in
     });
 };
 
-module.exports.updateUser = function updateUser (req, res, next, body, userId) {
+export const updateUser = function updateUser (req, res, next, body, userId) {
   USERS.updateUser(body, userId)
     .then(function (response) {
       utils.writeJson(res, response);

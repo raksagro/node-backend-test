@@ -1,14 +1,11 @@
-'use strict';
-
-
 /**
  * Create user
- * Create user into system
+ * Create an user.
  *
  * body User_create User created (optional)
  * no response value expected for this operation
  **/
-exports.createUser = function(body) {
+export const createUser = function(body) {
   return new Promise(function(resolve, reject) {
     resolve();
   });
@@ -17,12 +14,12 @@ exports.createUser = function(body) {
 
 /**
  * Delete user by ID
- * Delete an user by his ID
+ * This method deletes a user by passing his ID.
  *
  * userId UUID 
  * no response value expected for this operation
  **/
-exports.deleteUser = function(userId) {
+export const deleteUser = function(userId) {
   return new Promise(function(resolve, reject) {
     resolve();
   });
@@ -31,113 +28,40 @@ exports.deleteUser = function(userId) {
 
 /**
  * Read user by ID
- * Read an user by his ID
+ * This method returns an object containing a user registered into system by passing his ID
  *
  * userId UUID 
  * returns response_200_user
  **/
-exports.readUserById = function(userId) {
+export const readUserById = function(userId) {
   return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "user" : {
-    "id" : "39fc527d-1cb0-43b8-a7b6-6a9129713aac",
-    "name" : "Pedro Soares",
-    "dob" : "1993-10-29",
-    "address" : {
-      "zipCode" : "01234-000",
-      "street" : "Adelia Fonseca do Bom Retiro",
-      "number" : 317,
-      "complement" : "APTO 33",
-      "district" : "Vila São Tirol",
-      "city" : "São Paulo",
-      "state" : "SP",
-      "country" : "Brasil"
-    },
-    "description" : "Desenvolvedor Fullstack",
-    "createdAt" : "2020-04-12",
-    "updatedAt" : "2020-04-12"
-  },
-  "statusCode" : 200
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
+    resolve()
   });
 }
 
 
 /**
- * Read users
  * Read all users
+ * This method returns a list containing all users registered into system
  *
- * limit Integer limit integer
- * offset Integer offset integer
- * initialDate Date initial date string (optional)
- * finalDate Date final date string (optional)
  * returns response_200_users
  **/
-exports.readUsers = function(limit,offset,initialDate,finalDate) {
+export const readUsers = function() {
   return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "users" : [ {
-    "id" : "39fc527d-1cb0-43b8-a7b6-6a9129713aac",
-    "name" : "Pedro Soares",
-    "dob" : "1993-10-29",
-    "address" : {
-      "zipCode" : "01234-000",
-      "street" : "Adelia Fonseca do Bom Retiro",
-      "number" : 317,
-      "complement" : "APTO 33",
-      "district" : "Vila São Tirol",
-      "city" : "São Paulo",
-      "state" : "SP",
-      "country" : "Brasil"
-    },
-    "description" : "Desenvolvedor Fullstack",
-    "createdAt" : "2020-04-12",
-    "updatedAt" : "2020-04-12"
-  }, {
-    "id" : "39fc527d-1cb0-43b8-a7b6-6a9129713aac",
-    "name" : "Pedro Soares",
-    "dob" : "1993-10-29",
-    "address" : {
-      "zipCode" : "01234-000",
-      "street" : "Adelia Fonseca do Bom Retiro",
-      "number" : 317,
-      "complement" : "APTO 33",
-      "district" : "Vila São Tirol",
-      "city" : "São Paulo",
-      "state" : "SP",
-      "country" : "Brasil"
-    },
-    "description" : "Desenvolvedor Fullstack",
-    "createdAt" : "2020-04-12",
-    "updatedAt" : "2020-04-12"
-  } ],
-  "statusCode" : 200
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
+    resolve()
   });
 }
 
 
 /**
- * Update user by ID
- * Update an user by his ID
+ * Update an user by ID
+ * This method updates a user by passing only the fields that need to be changed.
  *
  * body User_update Broker info update (optional)
  * userId UUID 
  * no response value expected for this operation
  **/
-exports.updateUser = function(body,userId) {
+export const updateUser = function(body,userId) {
   return new Promise(function(resolve, reject) {
     resolve();
   });
