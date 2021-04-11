@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   title: Raks Technical Test API
   description: This service intend to provide an security interface with front-end
-    and others system services. This microservice are going to provide all acceptable
+    and others system services. This service are going to provide all acceptable
     rules to create, read, update and delete (CRUD) data. All endpoints of this application
     required a valide bearer token to work.
   license:

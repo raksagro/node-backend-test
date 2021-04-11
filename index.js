@@ -1,21 +1,35 @@
 'use strict';
 
-var path = require('path');
-var http = require('http');
+import path from 'path';
+import http from 'http';
+import cors from 'cors'
+import * as oas3Tools from 'oas3-tools';
+import dotenv from 'dotenv';
 
-var oas3Tools = require('oas3-tools');
-var serverPort = 8080;
+const dotenvConfig = dotenv.config();
+const serverPort = process.env.PORT;
 
 // swaggerRouter configuration
-var options = {
+let options = {
     routing: {
         controllers: path.join(__dirname, './controllers')
     },
 };
 
-var expressAppConfig = oas3Tools.expressAppConfig(path.join(__dirname, 'api/openapi.yaml'), options);
-var app = expressAppConfig.getApp();
+let expressAppConfig = oas3Tools.expressAppConfig(path.join(__dirname, 'api/openapi.yaml'), options);
+let app = expressAppConfig.getApp();
 
+app.use(cors());
+app.disable('x-powered-by');
+//Authentication
+app.use("^/$",(req, res, next) => {res.status(200).send({statusCode:200, message: "It's alive"})})
+app.use((req, res, next) => {
+    if(!req.headers["x-api-key"] || req.headers["x-api-key"].replace("Bearer ","") !== process.env.API_KEY){
+      res.status(401).send({statusCode: 401, error: "Unauthorized", message: "Missing valid authentication"})
+    }
+    else
+      next();
+});
 // Initialize the Swagger middleware
 http.createServer(app).listen(serverPort, function () {
     console.log('Your server is listening on port %d (http://localhost:%d)', serverPort, serverPort);
