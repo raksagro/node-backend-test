@@ -1,0 +1,37 @@
+{
+  "name": "api-estudo-pedro",
+  "version": "1.0.0",
+  "description": "Micro-serviço para acesso ao banco de dados email: pedroteste@teste.com.br",
+  "main": "index.js",
+  "scripts": {
+    "prestart": "npm install",
+    "start": "node index.js",
+    "dev": "nodemon --exec babel-node ./index.js"
+  },
+  "keywords": [
+    "swagger"
+  ],
+  "license": "Unlicense",
+  "private": true,
+  "dependencies": {
+    "connect": "^3.2.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "js-yaml": "^3.3.0",
+    "oas3-tools": "^2.2.3",
+    "pg": "^8.5.1",
+    "sequelize": "^6.5.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.0",
+    "@babel/node": "^7.8.7",
+    "@babel/plugin-transform-runtime": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
+    "@babel/register": "^7.9.0",
+    "@babel/runtime": "^7.9.2",
+    "babel-loader": "^8.1.0",
+    "nodemon": "^2.0.3",
+    "sequelize-cli": "^6.2.0"
+  }
+}
