@@ -3,8 +3,7 @@ info:
   title: Raks Technical Test API
   description: This service intend to provide an security interface with front-end
     and others system services. This service are going to provide all acceptable
-    rules to create, read, update and delete (CRUD) data. All endpoints of this application
-    required a valide bearer token to work.
+    rules to create, read, update and delete (CRUD) data.
   license:
     name: Private
     url: https://www.replacethisurl.com/
@@ -13,7 +12,7 @@ servers:
 - url: http://localhost:8080/
   description: Local
 security:
-- bearerAuth: []
+- ApiKeyAuth: []
 tags:
 - name: USERS
   description: "CRUD operation for user table, create-read-update-delete"
@@ -71,12 +70,13 @@ paths:
               application/json:
                 schema:
                   $ref: '#/components/schemas/response_200_users'
-        "400":
+        "404":
           description: Not found users
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/response_404_users'
+      x-swagger-router-controller: USERS
   /user/byId:
     get:
       tags:
@@ -112,7 +112,7 @@ paths:
       - USERS
       summary: Update an user by ID
       description: This method updates a user by passing only the fields that need to be changed.
-      operationId: updateUser
+      operationId: updateUserById
       parameters:
       - name: userId
         in: query
@@ -142,7 +142,7 @@ paths:
         <b>Be careful, be sure of what you're doing, this is not a completely safe deletion method,
           because after deleting, the user cannot be recovered.
         </b>
-      operationId: deleteUser
+      operationId: deleteUserById
       parameters:
       - name: userId
         in: query
@@ -210,7 +210,7 @@ components:
           type: string
           format: date
         address:
-          type: string
+          type: object
         description:
           type: string
         createAt:
@@ -234,9 +234,6 @@ components:
         }
         description: "Desenvolvedor Fullstack"
     user_update:
-      required:
-      - name
-      - dob
       type: object
       properties:
         name:
@@ -303,6 +300,7 @@ components:
           type: string
           example: Not found users
   securitySchemes:
-    bearerAuth:
-      type: http
-      scheme: bearer
+    ApiKeyAuth:
+      type: apiKey
+      name: X-API-KEY
+      in: header

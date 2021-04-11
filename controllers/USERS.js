@@ -1,5 +1,5 @@
-import utils from '../utils/writer.js';
-import USERS from '../service/USERSService';
+import * as utils from '../utils/writer.js';
+import * as USERS from '../service/USERSService';
 
 export const createUser = function createUser (req, res, next, body) {
   USERS.createUser(body)
@@ -11,8 +11,8 @@ export const createUser = function createUser (req, res, next, body) {
     });
 };
 
-export const deleteUser = function deleteUser (req, res, next, userId) {
-  USERS.deleteUser(userId)
+export const deleteUserById = function deleteUserById (req, res, next, userId) {
+  USERS.deleteUserById(userId)
     .then(function (response) {
       utils.writeJson(res, response);
     })
@@ -31,8 +31,8 @@ export const readUserById = function readUserById (req, res, next, userId) {
     });
 };
 
-export const readUsers = function readUsers (req, res, next, limit, offset, initialDate, finalDate) {
-  USERS.readUsers(limit, offset, initialDate, finalDate)
+export const readUsers = function readUsers (req, res, next) {
+  USERS.readUsers()
     .then(function (response) {
       utils.writeJson(res, response);
     })
@@ -41,8 +41,8 @@ export const readUsers = function readUsers (req, res, next, limit, offset, init
     });
 };
 
-export const updateUser = function updateUser (req, res, next, body, userId) {
-  USERS.updateUser(body, userId)
+export const updateUserById = function updateUserById (req, res, next, body, userId) {
+  USERS.updateUserById(body, userId)
     .then(function (response) {
       utils.writeJson(res, response);
     })

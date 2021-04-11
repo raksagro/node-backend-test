@@ -6,6 +6,7 @@ module.exports = {
       {
         id: 'c3cf50f2-7ffa-4411-9d8e-b4d72d4bac85',
         name: "Vitor Hugo",
+        dob: new Date("1990-07-09 01:01:01").toJSON(),
         address: JSON.stringify({
           "zipCode": "04733-000",
           "street": "Rua Adolfo Pinheiro",
@@ -23,6 +24,7 @@ module.exports = {
       {
         id: '5dc204b3-b508-4451-b7ff-c2aab22493ee',
         name: "Rogério Cardoso",
+        dob: new Date("1988-09-05 01:01:01").toJSON(),
         address: JSON.stringify({
           "zipCode": "04546-001",
           "street": "Rua Casa do Ator",

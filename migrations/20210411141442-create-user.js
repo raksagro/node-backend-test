@@ -12,6 +12,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
+      dob: {
+        allowNull: true,
+        type: Sequelize.DATE
+      },
       address: {
         allowNull: true,
         type: Sequelize.JSON
