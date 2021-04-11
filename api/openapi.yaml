@@ -1,0 +1,322 @@
+openapi: 3.0.0
+info:
+  title: Raks Technical Test API
+  description: This service intend to provide an security interface with front-end
+    and others system services. This microservice are going to provide all acceptable
+    rules to create, read, update and delete (CRUD) data. All endpoints of this application
+    required a valide bearer token to work.
+  license:
+    name: Private
+    url: https://www.replacethisurl.com/
+  version: 1.0.0
+servers:
+- url: http://localhost:8080/
+  description: Local
+security:
+- bearerAuth: []
+tags:
+- name: USERS
+  description: "CRUD operation for user table, create-read-update-delete"
+paths:
+  /user:
+    post:
+      tags:
+      - USERS
+      summary: Create user
+      description: Create user into system
+      operationId: createUser
+      requestBody:
+        description: User created
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/user_create'
+      responses:
+        "200":
+          description: User created
+        "400":
+          description: Bad request
+        "409":
+          description: User already exists
+      x-swagger-router-controller: USERS
+  /user/all:
+    get:
+      tags:
+      - USERS
+      summary: Read users
+      description: Read all users
+      operationId: readUsers
+      parameters:
+      - name: initialDate
+        in: query
+        description: initial date string
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          format: date-time
+      - name: finalDate
+        in: query
+        description: final date string
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          format: date-time
+      - name: limit
+        in: query
+        description: limit integer
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+      - name: offset
+        in: query
+        description: offset integer
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Users found
+          content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/response_200_users'
+        "400":
+          description: Not found users
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response_404_users'
+  /user/byId:
+    get:
+      tags:
+      - USERS
+      summary: Read user by ID
+      description: Read an user by his ID
+      operationId: readUserById
+      parameters:
+      - name: userId
+        in: query
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          description: User found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response_200_user'
+        "404":
+          description: Not found user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response_404_user'
+        "500":
+          description: Internal server error
+      x-swagger-router-controller: USERS
+    put:
+      tags:
+      - USERS
+      summary: Update user by ID
+      description: Update an user by his ID
+      operationId: updateUser
+      parameters:
+      - name: userId
+        in: query
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        description: Broker info update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/user_update'
+      responses:
+        "200":
+          description: User updated
+        "404":
+          description: User not found
+        "500":
+          description: Internal server error
+      x-swagger-router-controller: USERS
+    delete:
+      tags:
+      - USERS
+      summary: Delete user by ID
+      description: Delete an user by his ID
+      operationId: deleteUser
+      parameters:
+      - name: userId
+        in: query
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          description: User deleted
+        "404":
+          description: User not found
+        "500":
+          description: Internal server error
+      x-swagger-router-controller: USERS
+components:
+  schemas:
+    user:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        dob:
+          type: string
+          format: date
+        address:
+          type: string
+        description:
+          type: string
+        createAt:
+          type: string
+          format: date
+        updatedAt:
+          type: string
+          format: date
+      example:
+        id: 39fc527d-1cb0-43b8-a7b6-6a9129713aac
+        name: Pedro Soares
+        dob: "1993-10-29"
+        address: {
+          zipCode: "01234-000",
+          street: "Adelia Fonseca do Bom Retiro",
+          number: 317,
+          complement: "APTO 33",
+          district: "Vila São Tirol",
+          city: "São Paulo",
+          state: "SP",
+          country: "Brasil"
+        }
+        description: "Desenvolvedor Fullstack"
+        createdAt: "2020-04-12"
+        updatedAt: "2020-04-12"
+    user_create:
+      required:
+      - name
+      - dob
+      type: object
+      properties:
+        name:
+          type: string
+        dob:
+          type: string
+          format: date
+        address:
+          type: string
+        description:
+          type: string
+        createAt:
+          type: string
+          format: date
+        updatedAt:
+          type: string
+          format: date
+      example:
+        name: Pedro Soares
+        dob: "1993-10-29"
+        address: {
+          zipCode: "01234-000",
+          street: "Adelia Fonseca do Bom Retiro",
+          number: 317,
+          complement: "APTO 33",
+          district: "Vila São Tirol",
+          city: "São Paulo",
+          state: "SP",
+          country: "Brasil"
+        }
+        description: "Desenvolvedor Fullstack"
+    user_update:
+      required:
+      - name
+      - dob
+      type: object
+      properties:
+        name:
+          type: string
+        dob:
+          type: string
+          format: date
+        address:
+          type: string
+        description:
+          type: string
+        createAt:
+          type: string
+          format: date
+        updatedAt:
+          type: string
+          format: date
+      example:
+        name: Pedro Soares
+        dob: "1993-10-29"
+        address: {
+          zipCode: "01234-000",
+          street: "Adelia Fonseca do Bom Retiro",
+          number: 317,
+          complement: "APTO 33",
+          district: "Vila São Tirol",
+          city: "São Paulo",
+          state: "SP",
+          country: "Brasil"
+        }
+        description: "Desenvolvedor Fullstack"
+    response_200_user:
+      properties:
+        statusCode:
+          type: integer
+          example: 200
+        user:
+          $ref: '#/components/schemas/user'
+    response_200_users:
+      properties:
+        statusCode:
+          type: integer
+          example: 200
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/user'
+    response_404_user:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+          example: 404
+        message:
+          type: string
+          example: Not found user
+    response_404_users:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+          example: 404
+        message:
+          type: string
+          example: Not found users
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
