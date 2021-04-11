@@ -35,7 +35,8 @@ export const createUser = function (body) {
       else
         reject(respondWithCode(404, { statusCode: 404, message: "User not created" }))
     }).catch((error) => {
-      reject(respondWithCode(500, { message: "Internal server error", error }));
+      console.log(error)
+      reject(respondWithCode(500, { statusCode: 500, message: "Internal server error" }));
     });
   });
 }
@@ -135,12 +136,12 @@ export const updateUserById = function (body, userId) {
       }
     }).then((result) => {
       if (result[0])
-        resolve(respondWithCode(200, { message: "User updated" }));
+        resolve(respondWithCode(200, {statusCode: 200, message: "User updated" }));
       else
-        reject(respondWithCode(404, { message: "Not found user" }))
+        reject(respondWithCode(404, {statusCode: 404, message: "Not found user" }))
     }).catch((error) => {
       console.log(error)
-      reject(respondWithCode(500, { message: "Internal server error" }));
+      reject(respondWithCode(500, {statusCode: 500, message: "Internal server error" }));
     });
   });
 }

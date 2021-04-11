@@ -51,10 +51,22 @@ paths:
       responses:
         "200":
           description: User created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response'
         "400":
           description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response'
         "409":
           description: User already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response'
       x-swagger-router-controller: USERS
   /user/all:
     get:
@@ -75,7 +87,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/response_404_users'
+                $ref: '#/components/schemas/response'
       x-swagger-router-controller: USERS
   /user/byId:
     get:
@@ -103,9 +115,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/response_404_user'
+                $ref: '#/components/schemas/response'
         "500":
           description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response'
       x-swagger-router-controller: USERS
     put:
       tags:
@@ -121,7 +137,7 @@ paths:
           type: string
           format: uuid
       requestBody:
-        description: Broker info update
+        description: User info update
         content:
           application/json:
             schema:
@@ -129,10 +145,22 @@ paths:
       responses:
         "200":
           description: User updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response'
         "404":
           description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response'
         "500":
           description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response'
       x-swagger-router-controller: USERS
     delete:
       tags:
@@ -153,10 +181,22 @@ paths:
       responses:
         "200":
           description: User deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response'
         "404":
           description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response'
         "500":
           description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response'
       x-swagger-router-controller: USERS
   /user/localization/byId:
     get:
@@ -184,18 +224,29 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/response_401_localization'
+                $ref: '#/components/schemas/response'
         "404":
           description: Not found user
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/response_404_user'
+                $ref: '#/components/schemas/response'
         "500":
           description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response'
       x-swagger-router-controller: USERS
 components:
   schemas:
+    response:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+        message:
+          type: string
     user:
       type: object
       properties:
@@ -317,24 +368,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/user'
-    response_404_user:
-      type: object
-      properties:
-        statusCode:
-          type: integer
-          example: 404
-        message:
-          type: string
-          example: Not found user
-    response_404_users:
-      type: object
-      properties:
-        statusCode:
-          type: integer
-          example: 404
-        message:
-          type: string
-          example: Not found users
     response_200_localization:
       type: object
       properties:
@@ -350,15 +383,6 @@ components:
             latitude:
               type: string
               example: "-048.675000"
-    response_401_localization:
-      type: object
-      properties:
-        statusCode:
-          type: integer
-          example: 404
-        message:
-          type: string
-          example: Not found address
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
