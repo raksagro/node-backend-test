@@ -50,3 +50,13 @@ export const updateUserById = function updateUserById (req, res, next, body, use
       utils.writeJson(res, response);
     });
 };
+
+export const getUserLocalizationById = function getUserLocalizationById (req, res, next, userId) {
+  USERS.getUserLocalizationById(userId)
+    .then(function (response) {
+      utils.writeJson(res, response);
+    })
+    .catch(function (response) {
+      utils.writeJson(res, response);
+    });
+};

@@ -28,9 +28,9 @@ paths:
           <li> name* (string) - This field must contain the user's full name.</li>
           <li> dob* (string) - This field must contain the user's birthday (date of birth).</li>
           <li> address (object) - This field must contain an object with the user's address data with
-            the fields listed below</li>
+            the fields listed below.</li>
           <ul>
-            <li> zipCode (string) </li>
+            <li> zipCode (string) - Only numbers </li>
             <li> street (string) </li>
             <li> number (integer) </li>
             <li> complement (string) </li>
@@ -158,6 +158,42 @@ paths:
         "500":
           description: Internal server error
       x-swagger-router-controller: USERS
+  /user/localization/byId:
+    get:
+      tags:
+      - USERS
+      summary: Get user localization by ID
+      description: This method returns the user's longitude and latitude, according to the registered address by passing the user ID
+      operationId: getUserLocalizationById
+      parameters:
+      - name: userId
+        in: query
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          description: User localization found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response_200_localization'
+        "401":
+          description: Not found address
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response_401_localization'
+        "404":
+          description: Not found user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response_404_user'
+        "500":
+          description: Internal server error
+      x-swagger-router-controller: USERS
 components:
   schemas:
     user:
@@ -186,7 +222,7 @@ components:
         name: Pedro Soares
         dob: "1993-10-29"
         address: {
-          zipCode: "01234-000",
+          zipCode: "01234000",
           street: "Adelia Fonseca do Bom Retiro",
           number: 317,
           complement: "APTO 33",
@@ -223,7 +259,7 @@ components:
         name: Pedro Soares
         dob: "1993-10-29"
         address: {
-          zipCode: "01234-000",
+          zipCode: "01234000",
           street: "Adelia Fonseca do Bom Retiro",
           number: 317,
           complement: "APTO 33",
@@ -255,7 +291,7 @@ components:
         name: Pedro Soares
         dob: "1993-10-29"
         address: {
-          zipCode: "01234-000",
+          zipCode: "01234000",
           street: "Adelia Fonseca do Bom Retiro",
           number: 317,
           complement: "APTO 33",
@@ -299,6 +335,30 @@ components:
         message:
           type: string
           example: Not found users
+    response_200_localization:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+          example: 200
+        localization:
+          type: object
+          properties:
+            longitude:
+              type: string
+              example: "-28.098883"
+            latitude:
+              type: string
+              example: "-048.675000"
+    response_401_localization:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+          example: 404
+        message:
+          type: string
+          example: Not found address
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

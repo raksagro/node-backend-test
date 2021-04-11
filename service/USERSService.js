@@ -1,6 +1,7 @@
 import db from '../models';
 import { respondWithCode } from '../utils/writer'
 import { v4 as uuidv4 } from 'uuid';
+import axios from 'axios';
 
 
 /**
@@ -10,8 +11,8 @@ import { v4 as uuidv4 } from 'uuid';
  * body User_create User created (optional)
  * no response value expected for this operation
  **/
-export const createUser = function(body) {
-  return new Promise(async function(resolve, reject){
+export const createUser = function (body) {
+  return new Promise(async function (resolve, reject) {
     let secureBody = {
       id: uuidv4(),
       name: body.name,
@@ -28,15 +29,13 @@ export const createUser = function(body) {
       },
       description: body.description,
     }
-    await db.user.create(secureBody).
-    then((result) => {
-      if(result)
-        resolve(respondWithCode(200, { statusCode: 200, result}));
+    await db.user.create(secureBody).then((result) => {
+      if (result)
+        resolve(respondWithCode(200, { statusCode: 200, result }));
       else
-        reject(respondWithCode(404, { statusCode: 404, message: "User not created"}))
-    }).
-    catch((error) => {
-      reject(respondWithCode(500,{message: "Internal server error", error}));
+        reject(respondWithCode(404, { statusCode: 404, message: "User not created" }))
+    }).catch((error) => {
+      reject(respondWithCode(500, { message: "Internal server error", error }));
     });
   });
 }
@@ -49,20 +48,20 @@ export const createUser = function(body) {
  * userId UUID 
  * no response value expected for this operation
  **/
-export const deleteUserById = function(userId) {
-  return new Promise(async function(resolve, reject) {
+export const deleteUserById = function (userId) {
+  return new Promise(async function (resolve, reject) {
     await db.user.destroy({
       where: {
         id: userId
       }
     }).then((result) => {
-      if(result)
-        resolve(respondWithCode(200, {statusCode: 200, message: "User deleted"}));
+      if (result)
+        resolve(respondWithCode(200, { statusCode: 200, message: "User deleted" }));
       else
-        reject(respondWithCode(404, {statusCode: 404, message: "Not found user"}))
+        reject(respondWithCode(404, { statusCode: 404, message: "Not found user" }))
     }).catch((error) => {
       console.log(error)
-      reject(respondWithCode(500, {statusCode: 500, message: "Internal server error"}));
+      reject(respondWithCode(500, { statusCode: 500, message: "Internal server error" }));
     });
   });
 }
@@ -75,20 +74,20 @@ export const deleteUserById = function(userId) {
  * userId UUID 
  * returns response_200_user
  **/
-export const readUserById = function(userId) {
-  return new Promise(async function(resolve, reject) {
+export const readUserById = function (userId) {
+  return new Promise(async function (resolve, reject) {
     await db.user.findOne({
       where: {
         id: userId
       }
     }).then((result) => {
-      if(result)
-        resolve(respondWithCode(200, {statusCode: 200, user: result}));
+      if (result)
+        resolve(respondWithCode(200, { statusCode: 200, user: result }));
       else
-        reject(respondWithCode(404, {statusCode: 404, message: "Not found user"}))
+        reject(respondWithCode(404, { statusCode: 404, message: "Not found user" }))
     }).catch((error) => {
       console.log(error)
-      reject(respondWithCode(500, {statusCode: 500, message: "Internal server error"}));
+      reject(respondWithCode(500, { statusCode: 500, message: "Internal server error" }));
     });
   });
 }
@@ -100,22 +99,21 @@ export const readUserById = function(userId) {
  *
  * returns response_200_users
  **/
-export const readUsers = function() {
-  return new Promise(async function(resolve, reject) {
+export const readUsers = function () {
+  return new Promise(async function (resolve, reject) {
     await db.user.findAll({
       where: {}
-    })
-    .then((result) => {
-      if(result){
-        resolve(respondWithCode(200, {statusCode:200, users: result}));
+    }).then((result) => {
+      if (result) {
+        resolve(respondWithCode(200, { statusCode: 200, users: result }));
       }
-      else{
+      else {
         payload['clients'] = []
-        reject(respondWithCode(404, {statusCode:404, message:"Not found user"}));
+        reject(respondWithCode(404, { statusCode: 404, message: "Not found user" }));
       }
     }).catch((error) => {
       console.log(error)
-      reject(respondWithCode(500, {statusCode:500, message: "Internal server error"}));
+      reject(respondWithCode(500, { statusCode: 500, message: "Internal server error" }));
     });
   });
 }
@@ -129,23 +127,64 @@ export const readUsers = function() {
  * userId UUID 
  * no response value expected for this operation
  **/
-export const updateUserById = function(body,userId) {
-  return new Promise(async function(resolve, reject) {
-    await db.user.update(body,{
+export const updateUserById = function (body, userId) {
+  return new Promise(async function (resolve, reject) {
+    await db.user.update(body, {
       where: {
         id: userId
       }
-    }).
-    then((result) => {
-      if(result[0])
-        resolve(respondWithCode(200, {message:"User updated"}));
+    }).then((result) => {
+      if (result[0])
+        resolve(respondWithCode(200, { message: "User updated" }));
       else
-        reject(respondWithCode(404, {message:"Not found user"}))
-    }).
-    catch((error) => {
+        reject(respondWithCode(404, { message: "Not found user" }))
+    }).catch((error) => {
       console.log(error)
-      reject(respondWithCode(500, {message: "Internal server error"}));
+      reject(respondWithCode(500, { message: "Internal server error" }));
     });
   });
 }
 
+
+/**
+ * Get user localization by ID
+ * This method returns the user's longitude and latitude, according to the registered address by passing the user ID
+ *
+ * userId UUID 
+ * returns response_200_localization
+ **/
+exports.getUserLocalizationById = function (userId) {
+  return new Promise(async function (resolve, reject) {
+    await db.user.findOne({
+      where: {
+        id: userId
+      }
+    }).then(async (result) => {
+      if (result) {
+        let address = result.dataValues.address
+        let location = `${address.number} ${address.street} ${address.city} ${address.state}`
+        axios.get(process.env.GOOGLE_API_URL, {
+          params: {
+            address: location,
+            key: process.env.GOOGLE_API_KEY
+          }
+        }).then((result) => {
+          let localization = result.data.results[0].geometry
+          let formattedResponse = {
+            latitude: `${localization.location.lat}`,
+            longitude: `${localization.location.lng}`
+          }
+          resolve(respondWithCode(200, { statusCode: 200, localization: formattedResponse }));
+        }).catch((error) => {
+          console.log(error)
+          reject(respondWithCode(404, { statusCode: 404, message: "Not found address, check the registered address" }))
+        })
+      } else {
+        reject(respondWithCode(404, { statusCode: 404, message: "Not found user" }))
+      }
+    }).catch((error) => {
+      console.log(error)
+      reject(respondWithCode(500, { statusCode: 500, message: "Internal server error" }));
+    });
+  });
+}
