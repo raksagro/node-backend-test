@@ -1,67 +1,113 @@
-# Raks Back-end Developer Test
 
-Be sure to read **all** of this document carefully, and follow the guidelines within.
+# Raks Technical Test API
 
-## Context
+  
 
-Build a RESTful API that can `create/read/update/delete` user data from a persistence store.
+API developed for the purpose of testing my technical knowledge in back-end development.
+  
+ 
 
-### User Model
+# Goal
+
+  
+The goal is to develop an API in Node.JS with endpoints for Creating, Reading, Editing and Deleting information in the user table. As a bonus, create an endpoint that returns the user's location according to the registered address.
+
+  
+
+# Installation
+
+### Requirements
+
+- [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+
+- [Node.js](https://nodejs.org/) 
+  
+
+### Clone the repository
 
 ```
-{
-  "id": "xxx",                  // user ID (must be unique)
-  "name": "backend test",       // user name
-  "dob": "",                    // date of birth
-  "address": "",                // user address
-  "description": "",            // user description
-  "createdAt": ""               // user created date
-  "updatedAt": ""               // user updated date
+$ git clone https://github.com/pedrolucasD/node-backend-test.git
+```
+
+### Access the cloned repository path
+
+```
+$ cd node-backend-test
+```
+
+### Install dependencies
+
+```
+$ npm i
+```
+### Create a .env file into root path like the follow example:
+ 
+```
+NODE_ENV=development
+PORT=8080
+API_KEY=e11ca31f-fb8c-4579-b6a7-fc20f8a50039
+GOOGLE_API_URL='https://maps.googleapis.com/maps/api/geocode/json'
+GOOGLE_API_KEY=
+```
+### Create a config.js file into root/config/ path like the follow example:
+ 
+```
+require('dotenv').config();
+
+module.exports = {
+  development: {
+    database: 'databaseName',
+    username: 'userName',
+    password: 'userPassword',
+    dialect: 'dialect',
+    port: DBPort,
+    host: 'yourHost',
+    dialectOptions: {
+      decimalNumbers: true
+    }
+  }
 }
 ```
 
-### Functionality
+### After the DB is configured, run the migrations and seeds
+ 
+```
+npx sequelize db:migrate
+```
+```
+npx sequelize db:seed:all
+```
 
-- The API should follow typical RESTful API design pattern.
-- The data should be saved in the DB.
-- Provide proper API documentation.
-- Proper error handling should be used.
+### Run server
 
-## What We Care About
+```
+$ npm run dev
+```
 
-Use any libraries that you would normally use if this were a real production App. Please note: we're interested in your code & the way you solve the problem, not how well you can use a particular library or feature.
+The server will run on the port set into .env file
 
-_We're interested in your method and how you approach the problem just as much as we're interested in the end result._
+  
 
-Here's what you should strive for:
+# How to use
 
-- Good use of current Node.js & Express.js
-- Good use of API design best practices.
-- Solid testing approach.
-- Extensible code.
+With the server running, access the Swagger documentation that contains all the details of the existing endpoints and the tests.
 
-## Implementation Path:
+```
+http://localhost:8080/docs
+```
 
-### Basic Requirements
+# Authorization
+On the left side of the Swagger interface (http://localhost:8080/docs) there will be an authorization button where the API-KEY must be inserted. Any value can be inserted.
+  
 
-  - Use Node.js `LTS` and any framework of your choice.
-  - Use any SQL DB. MySQL DB is preferred.
-  - Write concise and clear commit messages.
-  - Write clear **documentation** on how it has been designed and how to run the code.
+# Technologies
 
-### Bonus
-  - **Use typescript.**
-  - Use of Sequelize ORM (https://sequelize.org/)
-  - Provide proper unit tests.
-  - Add a read only endpoint to fetch location information based off the user's address (use [NASA](https://api.nasa.gov/api.html) or [Mapbox](https://www.mapbox.com/api-documentation/) APIs)
-  - Providing an online demo is welcomed, but not required.
+- [Node.js](https://nodejs.org/)
+- [Swagger](https://swagger.io/) OAS3.0
+  
 
-## Q&A
+# Author
 
-> Where should I send back the result when I'm done?
+Pedro Soares
 
-Fork this repo and send us a pull request when you think you are done. Or send me the link of the forked repo.
-
-> What if I have a question?
-
-Create a new issue in this repo or send me an email.
+plucas.soarespinto@gmail.com

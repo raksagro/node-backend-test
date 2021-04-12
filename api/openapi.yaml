@@ -1,0 +1,390 @@
+openapi: 3.0.0
+info:
+  title: Raks Technical Test API
+  description: This service intend to provide an security interface with front-end
+    and others system services. This service are going to provide all acceptable
+    rules to create, read, update and delete (CRUD) data.
+  license:
+    name: Private
+    url: https://www.replacethisurl.com/
+  version: 1.0.0
+servers:
+- url: http://localhost:8080/
+  description: Local
+security:
+- ApiKeyAuth: []
+tags:
+- name: USERS
+  description: "CRUD operation for user table, create-read-update-delete"
+paths:
+  /user:
+    post:
+      tags:
+      - USERS
+      summary: Create user
+      description: Create an user.<br><br>
+        Fields with * are mandatory to create an user <br>  
+        <ul>
+          <li> name* (string) - This field must contain the user's full name.</li>
+          <li> dob* (string) - This field must contain the user's birthday (date of birth).</li>
+          <li> address (object) - This field must contain an object with the user's address data with
+            the fields listed below.</li>
+          <ul>
+            <li> zipCode (string) - Only numbers </li>
+            <li> street (string) </li>
+            <li> number (integer) </li>
+            <li> complement (string) </li>
+            <li> district (string) </li>
+            <li> city (string) </li>
+            <li> state (string) </li>
+            <li> country (string) </li>
+          </ul>
+          <li> description (string) - This field must be contain the user's description</li>
+        </ul>
+      operationId: createUser
+      requestBody:
+        description: User created
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/user_create'
+      responses:
+        "200":
+          description: User created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+        "404":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response'
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response'
+      x-swagger-router-controller: USERS
+  /user/all:
+    get:
+      tags:
+      - USERS
+      summary: Read all users
+      description: This method returns a list containing all users registered into system
+      operationId: readUsers
+      responses:
+        "200":
+          description: Users found
+          content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/response_200_users'
+        "404":
+          description: Not found users
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response'
+      x-swagger-router-controller: USERS
+  /user/byId:
+    get:
+      tags:
+      - USERS
+      summary: Read user by ID
+      description: This method returns an object containing a user registered into system by passing his ID
+      operationId: readUserById
+      parameters:
+      - name: userId
+        in: query
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          description: User found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response_200_user'
+        "404":
+          description: Not found user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response'
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response'
+      x-swagger-router-controller: USERS
+    put:
+      tags:
+      - USERS
+      summary: Update an user by ID
+      description: This method updates a user by passing only the fields that need to be changed.
+      operationId: updateUserById
+      parameters:
+      - name: userId
+        in: query
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        description: User info update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/user_update'
+      responses:
+        "200":
+          description: User updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response'
+        "404":
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response'
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response'
+      x-swagger-router-controller: USERS
+    delete:
+      tags:
+      - USERS
+      summary: Delete user by ID
+      description: This method deletes a user by passing his ID.<br><br>
+        <b>Be careful, be sure of what you're doing, this is not a completely safe deletion method,
+          because after deleting, the user cannot be recovered.
+        </b>
+      operationId: deleteUserById
+      parameters:
+      - name: userId
+        in: query
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          description: User deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response'
+        "404":
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response'
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response'
+      x-swagger-router-controller: USERS
+  /user/localization/byId:
+    get:
+      tags:
+      - USERS
+      summary: Get user localization by ID
+      description: This method returns the user's longitude and latitude, according to the registered address by passing the user ID
+      operationId: getUserLocalizationById
+      parameters:
+      - name: userId
+        in: query
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          description: User localization found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response_200_localization'
+        "401":
+          description: Not found address
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response'
+        "404":
+          description: Not found user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response'
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response'
+      x-swagger-router-controller: USERS
+components:
+  schemas:
+    response:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+        message:
+          type: string
+    user:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        dob:
+          type: string
+          format: date
+        address:
+          type: string
+        description:
+          type: string
+        createAt:
+          type: string
+          format: date
+        updatedAt:
+          type: string
+          format: date
+      example:
+        id: 39fc527d-1cb0-43b8-a7b6-6a9129713aac
+        name: Pedro Soares
+        dob: "1993-10-29"
+        address: {
+          zipCode: "01234000",
+          street: "Adelia Fonseca do Bom Retiro",
+          number: 317,
+          complement: "APTO 33",
+          district: "Vila São Tirol",
+          city: "São Paulo",
+          state: "SP",
+          country: "Brasil"
+        }
+        description: "Desenvolvedor Fullstack"
+        createdAt: "2020-04-12"
+        updatedAt: "2020-04-12"
+    user_create:
+      required:
+      - name
+      - dob
+      type: object
+      properties:
+        name:
+          type: string
+        dob:
+          type: string
+          format: date
+        address:
+          type: object
+        description:
+          type: string
+        createAt:
+          type: string
+          format: date
+        updatedAt:
+          type: string
+          format: date
+      example:
+        name: Pedro Soares
+        dob: "1993-10-29"
+        address: {
+          zipCode: "01234000",
+          street: "Adelia Fonseca do Bom Retiro",
+          number: 317,
+          complement: "APTO 33",
+          district: "Vila São Tirol",
+          city: "São Paulo",
+          state: "SP",
+          country: "Brasil"
+        }
+        description: "Desenvolvedor Fullstack"
+    user_update:
+      type: object
+      properties:
+        name:
+          type: string
+        dob:
+          type: string
+          format: date
+        address:
+          type: string
+        description:
+          type: string
+        createAt:
+          type: string
+          format: date
+        updatedAt:
+          type: string
+          format: date
+      example:
+        name: Pedro Soares
+        dob: "1993-10-29"
+        address: {
+          zipCode: "01234000",
+          street: "Adelia Fonseca do Bom Retiro",
+          number: 317,
+          complement: "APTO 33",
+          district: "Vila São Tirol",
+          city: "São Paulo",
+          state: "SP",
+          country: "Brasil"
+        }
+        description: "Desenvolvedor Fullstack"
+    response_200_user:
+      properties:
+        statusCode:
+          type: integer
+          example: 200
+        user:
+          $ref: '#/components/schemas/user'
+    response_200_users:
+      properties:
+        statusCode:
+          type: integer
+          example: 200
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/user'
+    response_200_localization:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+          example: 200
+        localization:
+          type: object
+          properties:
+            longitude:
+              type: string
+              example: "-28.098883"
+            latitude:
+              type: string
+              example: "-048.675000"
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      name: X-API-KEY
+      in: header

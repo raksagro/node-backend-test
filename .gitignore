@@ -1,0 +1,5 @@
+build/Release
+build/
+node_modules/
+config/
+.env
