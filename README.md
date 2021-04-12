@@ -100,13 +100,13 @@ http://localhost:8080/docs
 On the left side of the Swagger interface (http://localhost:8080/docs) there will be an authorization button where the API-KEY must be inserted. Any value can be inserted.
   
 
-# Tecnologias
+# Technologies
 
 - [Node.js](https://nodejs.org/)
 - [Swagger](https://swagger.io/) OAS3.0
   
 
-# Autor
+# Author
 
 Pedro Soares
 
