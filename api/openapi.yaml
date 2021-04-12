@@ -54,15 +54,15 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/response'
-        "400":
+                $ref: '#/components/schemas/user'
+        "404":
           description: Bad request
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/response'
-        "409":
-          description: User already exists
+        "500":
+          description: Internal server error
           content:
             application/json:
               schema:
