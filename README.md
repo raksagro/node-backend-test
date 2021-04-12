@@ -49,7 +49,7 @@ API_KEY=e11ca31f-fb8c-4579-b6a7-fc20f8a50039
 GOOGLE_API_URL='https://maps.googleapis.com/maps/api/geocode/json'
 GOOGLE_API_KEY=
 ```
-### Create the config folder into root path and create the config.js file inside it (./config/config.js) like the follow example:
+### Create a config.js file into root/config/ path like the follow example:
  
 ```
 require('dotenv').config();
@@ -67,6 +67,15 @@ module.exports = {
     }
   }
 }
+```
+
+### After the DB is configured, run the migrations and seeds
+ 
+```
+npx sequelize db:migrate
+```
+```
+npx sequelize db:seed:all
 ```
 
 ### Run server
@@ -89,15 +98,13 @@ http://localhost:8080/docs
 
   
 
-# Technologies
+# Tecnologias
 
 - [Node.js](https://nodejs.org/)
 - [Swagger](https://swagger.io/) OAS3.0
-- [Sequelize](https://sequelize.org/)
-- [Postgres](https://www.postgresql.org/)
   
 
-# Author
+# Autor
 
 Pedro Soares
 
