@@ -90,12 +90,14 @@ The server will run on the port set into .env file
 
 # How to use
 
-With the server running, access the Swagger documentation that contains all the details of the existing endpoints and the tests
+With the server running, access the Swagger documentation that contains all the details of the existing endpoints and the tests.
 
 ```
 http://localhost:8080/docs
 ```
 
+# Authorization
+On the left side of the Swagger interface (http://localhost:8080/docs) there will be an authorization button where the API-KEY must be inserted. Any value can be inserted.
   
 
 # Tecnologias
