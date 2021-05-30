@@ -4,7 +4,7 @@
     "database": {
       "port": 3306,
       "type": "mysql",
-      "host": "mysql",
+      "host": "localhost",
       "username": "root",
       "password": "123456",
       "database": "app"

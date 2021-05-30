@@ -2,7 +2,13 @@ import { DatabaseConnection } from './protocols/connection.interface';
 import { Connection, createConnection } from 'typeorm';
 
 export class DatabaseClient implements DatabaseConnection {
-  connect(): Promise<Connection> {
-    return createConnection();
+  private connection: () => Promise<Connection>;
+
+  constructor() {
+    this.connection = createConnection;
+  }
+
+  async connect(): Promise<Connection> {
+    return this.connection();
   }
 }
