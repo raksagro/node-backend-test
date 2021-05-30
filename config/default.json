@@ -2,7 +2,12 @@
   "App": {
     "port": 8000,
     "database": {
-      "mongoUrl": "mongodb://localhost:27017/surf-forecast"
+      "port": 3306,
+      "type": "mysql",
+      "host": "mysql",
+      "username": "root",
+      "password": "123456",
+      "database": "app"
     },
     "auth": {
       "key": "some-key",

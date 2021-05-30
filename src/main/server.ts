@@ -1,8 +1,10 @@
 import { Server } from '@overnightjs/core';
 import { Application } from 'express';
 import * as http from 'http';
-import logger from './logger';
 import bodyParser from 'body-parser';
+import logger from './logger';
+import { DatabaseConnection } from '../infra/database/protocols/connection.interface';
+import { DatabaseClient } from '../infra/database/cliente.database';
 
 export class SetupServer extends Server {
   private server?: http.Server;
@@ -11,7 +13,8 @@ export class SetupServer extends Server {
     super();
   }
 
-  public init(): void {
+  public async init(): Promise<void> {
+    await this.setupDatabase();
     this.setupExpress();
   }
 
@@ -21,6 +24,13 @@ export class SetupServer extends Server {
 
   private setupExpress(): void {
     this.app.use(bodyParser.json());
+  }
+
+  private async setupDatabase(): Promise<void> {
+    const database: DatabaseConnection = new DatabaseClient();
+    await database.connect();
+
+    logger.info('Database connection handle success!');
   }
 
   public start(): void {
