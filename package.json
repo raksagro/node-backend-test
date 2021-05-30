@@ -8,7 +8,7 @@
     "start": "npm run build && node dist/index.js",
     "start:local": "dotenv -e .env -- ts-node-dev --transpile-only src/index.ts | pino-pretty -c",
     "test": "npm run lint && npm run style:check && npm run test:unit && npm run test:functional",
-    "lint": "eslint ./src ./test --ext .ts",
+    "lint:check": "eslint ./src --ext .ts",
     "lint:fix": "eslint ./src ./test --ext .ts --fix",
     "test:functional": "dotenv -e .env -- jest --projects ./test --runInBand",
     "test:unit": "jest --watch",
