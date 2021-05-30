@@ -5,15 +5,15 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "start": "yarn build && node dist/src/index.js",
+    "start": "npm run build && node dist/index.js",
     "start:local": "dotenv -e .env -- ts-node-dev --transpile-only src/index.ts | pino-pretty -c",
-    "test": "yarn lint && yarn style:check && yarn test:unit && yarn test:functional",
+    "test": "npm run lint && npm run style:check && npm run test:unit && npm run test:functional",
     "lint": "eslint ./src ./test --ext .ts",
     "lint:fix": "eslint ./src ./test --ext .ts --fix",
     "test:functional": "dotenv -e .env -- jest --projects ./test --runInBand",
     "test:unit": "jest --watch",
-    "style:check": "prettier --check 'src/**/*.ts' 'test/**/*.ts'",
-    "style:fix": "prettier --write 'src/**/*.ts' 'test/**/*.ts'"
+    "style:check": "prettier --check 'src/**/*.ts'",
+    "style:fix": "prettier --write 'src/**/*.ts'"
   },
   "keywords": [
     "node",
@@ -83,5 +83,8 @@
     "@commitlint/cli": "^9.1.1",
     "@commitlint/config-conventional": "^9.1.1",
     "husky": "^4.2.5"
+  },
+  "_moduleAliases": {
+    "@/": "dist/."
   }
 }
