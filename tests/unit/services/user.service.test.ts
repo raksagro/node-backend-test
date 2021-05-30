@@ -2,7 +2,7 @@ import { UserRepository } from '../../../src/infra/repositories/user.repository'
 import { UserService } from '../../../src/application/services/user.service';
 import { User } from '../../../src/domain/entities/user.entity';
 
-describe('User CRUD', () => {
+describe('User Service', () => {
   const userRepository = new UserRepository();
   const userService = new UserService(userRepository);
 

@@ -48,6 +48,7 @@
     "node-cache": "^5.1.2",
     "pino": "^6.3.2",
     "reflect-metadata": "^0.1.13",
+    "sqlite3": "^5.0.2",
     "swagger-ui-express": "^4.1.4",
     "typeorm": "^0.2.32"
   },

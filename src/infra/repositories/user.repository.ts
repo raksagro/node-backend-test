@@ -10,4 +10,8 @@ export class UserRepository extends Repository<User> {
   findAll(): Promise<User[]> {
     return this.find();
   }
+
+  store(user: User): Promise<User> {
+    return this.save(user);
+  }
 }
