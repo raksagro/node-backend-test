@@ -26,7 +26,6 @@ export class UserService {
     user.id = userId;
 
     const userDeleted = await this.userRepository.del(user);
-    console.log(userDeleted);
 
     return userDeleted;
   }

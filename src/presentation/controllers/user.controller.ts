@@ -49,8 +49,11 @@ export class UserController extends BaseController {
     try {
       const { params } = req;
 
-      if (isNaN(Number(params.userId)))
+      if (isNaN(Number(params.userId))) {
         res.send(this.badRequest('User ID param must be a number'));
+
+        return;
+      }
 
       const response = await this.service.delete(Number(params.userId));
 
