@@ -1,0 +1,28 @@
+{
+  "App": {
+    "port": 8000,
+    "database": {
+      "port": 3306,
+      "type": "mysql",
+      "host": "localhost",
+      "username": "root",
+      "password": "123456",
+      "database": "app"
+    },
+    "auth": {
+      "key": "some-key",
+      "tokenExpiresIn": "20000000"
+    },
+    "resources": {
+      "StormGlass": {
+        "apiUrl": "https://api.stormglass.io/v2",
+        "apiToken": "do-not-hard-code",
+        "cacheTtl": 3600
+      }
+    },
+    "logger": {
+      "enabled": true,
+      "level": "info"
+    }
+  }
+}
