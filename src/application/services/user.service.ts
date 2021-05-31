@@ -1,12 +1,11 @@
-import { getCustomRepository } from 'typeorm';
 import { User } from '../../domain/entities/user.entity';
 import { UserRepository } from '../../infra/repositories/user.repository';
 
 export class UserService {
   private userRepository: UserRepository;
 
-  constructor() {
-    this.userRepository = getCustomRepository(UserRepository);
+  constructor(_userRepository: UserRepository) {
+    this.userRepository = _userRepository;
   }
 
   all(): Promise<User[]> {
