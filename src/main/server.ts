@@ -2,9 +2,11 @@ import { Server } from '@overnightjs/core';
 import { Application } from 'express';
 import * as http from 'http';
 import bodyParser from 'body-parser';
+import cors from 'cors';
 import logger from './logger';
 import { DatabaseConnection } from '../infra/database/protocols/connection.interface';
 import { DatabaseClient } from '../infra/database/cliente.database';
+import { UserControllerFactory } from './factories/controller/user.controller.factory';
 
 export class SetupServer extends Server {
   private server?: http.Server;
@@ -16,6 +18,7 @@ export class SetupServer extends Server {
   public async init(): Promise<void> {
     await this.setupDatabase();
     this.setupExpress();
+    this.setupControllers();
   }
 
   public getApp(): Application {
@@ -24,6 +27,11 @@ export class SetupServer extends Server {
 
   private setupExpress(): void {
     this.app.use(bodyParser.json());
+    this.app.use(
+      cors({
+        origin: '*',
+      }),
+    );
   }
 
   private async setupDatabase(): Promise<void> {
@@ -31,6 +39,11 @@ export class SetupServer extends Server {
     await database.connect();
 
     logger.info('Database connection handle success!');
+  }
+
+  private setupControllers(): void {
+    const userController = new UserControllerFactory();
+    this.addControllers([userController.create()]);
   }
 
   public start(): void {
