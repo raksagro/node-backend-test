@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Put } from '@overnightjs/core';
+import { Controller, Delete, Get, Post, Put } from '@overnightjs/core';
 import { Request, Response } from 'express';
 import { UserService } from '../../application/services/user.service';
 import { BaseController } from './base.controller';
@@ -39,6 +39,22 @@ export class UserController extends BaseController {
       const response = await this.service.update(body);
 
       res.send(this.ok(response));
+    } catch (error) {
+      res.send(this.serverError(error));
+    }
+  }
+
+  @Delete(':userId')
+  public async delete(req: Request, res: Response): Promise<void> {
+    try {
+      const { params } = req;
+
+      if (isNaN(Number(params.userId)))
+        res.send(this.badRequest('User ID param must be a number'));
+
+      const response = await this.service.delete(Number(params.userId));
+
+      res.send(this.ok(response, `User removed ID: ${Number(params.userId)}`));
     } catch (error) {
       res.send(this.serverError(error));
     }

@@ -21,10 +21,13 @@ export class UserService {
     return this.userRepository.updated(model);
   }
 
-  delete(userId: number): Promise<User> {
+  async delete(userId: number): Promise<User> {
     const user = new User();
     user.id = userId;
 
-    return this.userRepository.del(user);
+    const userDeleted = await this.userRepository.del(user);
+    console.log(userDeleted);
+
+    return userDeleted;
   }
 }
