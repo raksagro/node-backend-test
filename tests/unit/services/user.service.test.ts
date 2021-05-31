@@ -53,4 +53,21 @@ describe('User Service', () => {
 
     expect(await userService.update(userMock)).toEqual(userMock);
   });
+
+  it('should return the removed user', async () => {
+    const userId = 2;
+    const userMock: User = {
+      id: 2,
+      name: 'Bob',
+      description: 'Any description',
+      dob: new Date(),
+      address: 'X street, 1234',
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+
+    jest.spyOn(userRepository, 'del').mockResolvedValueOnce(userMock);
+
+    expect(await userService.delete(userId)).toEqual(userMock);
+  });
 });

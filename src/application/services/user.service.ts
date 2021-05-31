@@ -15,4 +15,11 @@ export class UserService {
   update(model: User): Promise<User> {
     return this.userRepository.updated(model);
   }
+
+  delete(userId: number): Promise<User> {
+    const user = new User();
+    user.id = userId;
+
+    return this.userRepository.del(user);
+  }
 }

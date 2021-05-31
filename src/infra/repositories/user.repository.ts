@@ -1,4 +1,4 @@
-import { EntityRepository, Repository, UpdateResult } from 'typeorm';
+import { EntityRepository, Repository } from 'typeorm';
 import { User } from '../../domain/entities/user.entity';
 
 EntityRepository(User);
