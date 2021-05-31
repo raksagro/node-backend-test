@@ -1,4 +1,4 @@
-import { Controller, Get, Post } from '@overnightjs/core';
+import { Controller, Get, Post, Put } from '@overnightjs/core';
 import { Request, Response } from 'express';
 import { UserService } from '../../application/services/user.service';
 import { BaseController } from './base.controller';
@@ -25,6 +25,18 @@ export class UserController extends BaseController {
     try {
       const { body } = req;
       const response = await this.service.store(body);
+
+      res.send(this.ok(response));
+    } catch (error) {
+      res.send(this.serverError(error));
+    }
+  }
+
+  @Put('')
+  public async update(req: Request, res: Response): Promise<void> {
+    try {
+      const { body } = req;
+      const response = await this.service.update(body);
 
       res.send(this.ok(response));
     } catch (error) {
