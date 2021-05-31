@@ -1,9 +1,4 @@
-import {
-  Controller,
-  Get,
-  ClassMiddleware,
-  Middleware,
-} from '@overnightjs/core';
+import { Controller, Get, Post } from '@overnightjs/core';
 import { Request, Response } from 'express';
 import { UserService } from '../../application/services/user.service';
 import { BaseController } from './base.controller';
@@ -21,7 +16,18 @@ export class UserController extends BaseController {
 
       res.send(this.ok(response));
     } catch (error) {
-      console.log(error);
+      res.send(this.serverError(error));
+    }
+  }
+
+  @Post('')
+  public async create(req: Request, res: Response): Promise<void> {
+    try {
+      const { body } = req;
+      const response = await this.service.store(body);
+
+      res.send(this.ok(response));
+    } catch (error) {
       res.send(this.serverError(error));
     }
   }
