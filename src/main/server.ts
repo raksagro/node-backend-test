@@ -3,6 +3,10 @@ import { Application } from 'express';
 import * as http from 'http';
 import bodyParser from 'body-parser';
 import cors from 'cors';
+import { OpenApiValidator } from 'express-openapi-validator';
+import swaggerUi from 'swagger-ui-express';
+import { OpenAPIV3 } from 'express-openapi-validator/dist/framework/types';
+import apiSchema from './api-schema.json';
 import logger from './logger';
 import { DatabaseConnection } from '../infra/database/protocols/connection.interface';
 import { DatabaseClient } from '../infra/database/cliente.database';
@@ -18,6 +22,7 @@ export class SetupServer extends Server {
   public async init(): Promise<void> {
     await this.setupDatabase();
     this.setupExpress();
+    await this.docsSetup();
     this.setupControllers();
   }
 
@@ -44,6 +49,15 @@ export class SetupServer extends Server {
   private setupControllers(): void {
     const userController = new UserControllerFactory();
     this.addControllers([userController.create()]);
+  }
+
+  private async docsSetup(): Promise<void> {
+    this.app.use('/docs', swaggerUi.serve, swaggerUi.setup(apiSchema));
+    await new OpenApiValidator({
+      apiSpec: apiSchema as OpenAPIV3.Document,
+      validateRequests: true, //we do it
+      validateResponses: true,
+    }).install(this.app);
   }
 
   public start(): void {

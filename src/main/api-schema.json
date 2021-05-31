@@ -1,0 +1,167 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "CRUD NodeJS Test",
+    "version": "1.0.0",
+    "description": "CRUD application for a nodejs backend hiring test"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8000/",
+      "description": "Local server"
+    }
+  ],
+  "paths": {
+    "/user/all": {
+      "summary": "List all users",
+      "description": "List all users",
+      "get": {
+        "summary": "List all users",
+        "description": "List all users",
+        "operationId": "",
+        "responses": {
+          "default": {
+            "description": "Success Response",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "success": {
+                    "value": "{\n    \"statusCode\": 200,\n    \"body\": [\n        {\n            \"id\": 6,\n            \"name\": \"Robert\",\n            \"dob\": \"1995-12-17T05:24:00.000Z\",\n            \"address\": \"Z Street, 9120\",\n            \"description\": \"Any description\",\n            \"createdAt\": \"2021-05-31T06:15:38.118Z\",\n            \"updatedAt\": \"2021-05-31T06:15:38.118Z\"\n        }\n    ]\n}"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user": {
+      "summary": "User",
+      "description": "Create an user",
+      "post": {
+        "summary": "Create an user",
+        "operationId": "create",
+        "requestBody": {
+          "required": true,
+          "description": "Body with new user data.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "dob": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "address": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "Default success response",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Success Response": {
+                    "value": "{\n    \"statusCode\": 200,\n    \"body\": {\n        \"name\": \"Robert\",\n        \"dob\": \"1995-12-17T03:24:00\",\n        \"address\": \"Z Street, 9120\",\n        \"description\": \"Any description\",\n        \"id\": 7,\n        \"createdAt\": \"2021-05-31T23:39:15.484Z\",\n        \"updatedAt\": \"2021-05-31T23:39:15.484Z\"\n    }\n}"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update user data",
+        "operationId": "Update",
+        "requestBody": {
+          "required": true,
+          "description": "Body with updated user data.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "dob": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "address": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "Default success response",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Success Response": {
+                    "value": "{\n  \"statusCode\": 200,\n  \"body\": {\n      \"description\": \"Any description 2\",\n      \"name\": \"Robert\",\n      \"dob\": \"1995-12-17T03:24:00\",\n      \"address\": \"Z Street, 9120\",\n      \"id\": 3,\n      \"createdAt\": \"2021-06-01T00:06:57.593Z\",\n      \"updatedAt\": \"2021-06-01T00:06:57.593Z\"\n  }\n}"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/{userId}": {
+      "summary": "Delete an user",
+      "description": "Delete an user",
+      "delete": {
+        "summary": "Delete an user",
+        "description": "Delete an user",
+        "operationId": "delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "userId",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "Default success response",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Success Response": {
+                    "value": "{\n \"statusCode\": 200,\n \"body\": {},\n \"message\": \"User removed ID: 3\"\n }"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
