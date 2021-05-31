@@ -21,4 +21,20 @@ describe('User Service', () => {
 
     expect(await userService.all()).toEqual([usersMock]);
   });
+
+  it('should return the saved user', async () => {
+    const userMock: User = {
+      id: 2,
+      name: 'Bob',
+      description: 'Any description',
+      dob: new Date(),
+      address: 'X street, 1234',
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+
+    jest.spyOn(userRepository, 'store').mockResolvedValueOnce(userMock);
+
+    expect(await userService.store(userMock)).toEqual(userMock);
+  });
 });

@@ -1,6 +1,5 @@
 import { UserRepository } from '../../../src/infra/repositories/user.repository';
 import { User } from '../../../src/domain/entities/user.entity';
-import { UpdateResult } from 'typeorm';
 
 describe('User Repository', () => {
   const userRepository = new UserRepository();

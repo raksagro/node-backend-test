@@ -7,4 +7,8 @@ export class UserService {
   all(): Promise<User[]> {
     return this.userRepository.findAll();
   }
+
+  store(model: User): Promise<User> {
+    return this.userRepository.store(model);
+  }
 }
