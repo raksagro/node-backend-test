@@ -11,4 +11,8 @@ export class UserService {
   store(model: User): Promise<User> {
     return this.userRepository.store(model);
   }
+
+  update(model: User): Promise<User> {
+    return this.userRepository.updated(model);
+  }
 }

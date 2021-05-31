@@ -37,4 +37,20 @@ describe('User Service', () => {
 
     expect(await userService.store(userMock)).toEqual(userMock);
   });
+
+  it('should return the updated user', async () => {
+    const userMock: User = {
+      id: 2,
+      name: 'Bob',
+      description: 'Any description',
+      dob: new Date(),
+      address: 'X street, 1234',
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+
+    jest.spyOn(userRepository, 'updated').mockResolvedValueOnce(userMock);
+
+    expect(await userService.update(userMock)).toEqual(userMock);
+  });
 });
