@@ -1,4 +1,3 @@
-const { update } = require('../models/user');
 const User = require('../models/user');
 // const moment = require('moment');
 // moment().format(); 
@@ -7,8 +6,17 @@ module.exports = {
  
   //GET - return all users
   async getAll(req, res) {
-    const users = await User.findAll();
-    return res.json(users);
+    try{
+      const users = await User.findAll();
+
+      if(!users || users.length == 0){
+        return res.status(400).json({ error: 'Users not found, probably not registered' });
+      }
+
+      return res.json(users);
+    } catch (err){ 
+      return res.status(500).json({ error: err });
+    }
   },
 
   //GET - find user by id
@@ -33,8 +41,8 @@ module.exports = {
         const { name, dob, address, description } = req.body;
         //moment("12-25-1995", "MM-DD-YYYY");
         const user = await User.create({ name, dob, address, description });
-        return res.json(user);; 
 
+        return res.json(user);
     } catch (err){
         return res.status(500).json({ error: err });
     }
@@ -45,7 +53,6 @@ module.exports = {
     try{
         const { id } = req.params;
         const { name, dob, address, description } = req.body;
-        console.log(id);
         const user = await User.findByPk(id);
 
         if(!user){
