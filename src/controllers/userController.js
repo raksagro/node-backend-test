@@ -1,6 +1,4 @@
 const User = require('../models/user');
-// const moment = require('moment');
-// moment().format(); 
 
 module.exports = {
  
@@ -13,7 +11,7 @@ module.exports = {
         return res.status(400).json({ error: 'Users not found, probably not registered' });
       }
 
-      return res.json(users);
+      return res.status(200).json({ message: 'Users returned successfully', users });
     } catch (err){ 
       return res.status(500).json({ error: err });
     }
@@ -22,16 +20,16 @@ module.exports = {
   //GET - find user by id
   async get(req, res) {
     try{
-        const { id } = req.params;
-        const user = await User.findByPk(id);
+      const { id } = req.params;
+      const user = await User.findByPk(id);
 
-        if(!user){
-            return res.status(400).json({ error: 'User not found' });
-        }
+      if(!user){
+          return res.status(400).json({ error: 'User not found' });
+      }
 
-        return res.json(user);
+      return res.status(200).json({ message: 'User data returned successfully', user });
     } catch (err){
-        return res.status(500).json({ error: err });
+      return res.status(500).json({ error: err });
     }
   },
 
@@ -39,10 +37,9 @@ module.exports = {
   async create(req, res) {
     try{
         const { name, dob, address, description } = req.body;
-        //moment("12-25-1995", "MM-DD-YYYY");
         const user = await User.create({ name, dob, address, description });
 
-        return res.json(user);
+        return res.status(200).json({ message: 'User created successfully', user });
     } catch (err){
         return res.status(500).json({ error: err });
     }
@@ -55,13 +52,17 @@ module.exports = {
         const { name, dob, address, description } = req.body;
         const user = await User.findByPk(id);
 
+        if(!name || !dob || !address || !description){
+          return res.status(400).json({ error: 'Fields cannot be empty' });
+        }
+
         if(!user){
             return res.status(400).json({ error: 'User not found' });
         }
 
         user.update({ name, dob, address, description });
 
-        return res.json(user);
+        return res.status(200).json({ message: 'User updated successfully', user });
     } catch (err){
         return res.status(500).json({ error: err });
     }
@@ -79,7 +80,7 @@ module.exports = {
 
         user.destroy();
 
-        return res.json(user);
+        return res.status(200).json({ message: 'User deleted successfully', user });
     } catch (err){
         return res.status(500).json({ error: err });
     }

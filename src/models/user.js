@@ -4,7 +4,7 @@ class User extends Model {
   static init(sequelize) {
     super.init({
       name: {
-        type: DataTypes.STRING(50),
+        type: DataTypes.STRING,
         allowNull: false,
         validate: {
           notEmpty:{
@@ -22,7 +22,7 @@ class User extends Model {
         }   
       },
       address: {
-        type: DataTypes.STRING(100),
+        type: DataTypes.STRING,
         allowNull: false,
         validate: {
           notEmpty:{
