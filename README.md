@@ -1,67 +1,219 @@
-# Raks Back-end Developer Test
+<h1 align="center">
 
-Be sure to read **all** of this document carefully, and follow the guidelines within.
+Raks Development Test API 
 
-## Context
+</h1>
 
-Build a RESTful API that can `create/read/update/delete` user data from a persistence store.
+## **:computer: About**
+This project consists of a technical test for backend development with NodeJS.
 
-### User Model
+A CRUD API was built to manage user data using MySQL database.
 
-```
+And finally, tests were implemented using Jest.
+
+### How has been designed 
+The project was divided into simple layers of database, models and controllers:
+
+* The controller mediates the input and output of data, communicating with the User model.
+* The model manages the behavior of the data and communicates with the database, making access to the data that must be collected, recorded or updated.
+* The database was structured using ORM Sequelize migrations.
+
+App, routes and server startup configuration files were also generated.
+
+![Imagem](https://uploaddeimagens.com.br/images/003/333/252/full/teste.jpg?1626205764)
+
+## ⚙️ NodeJS API
+
+The API has the basic features of creating, reading, updating and deleting.
+
+* **POST: /user**: Create a new user 
+```bash
+Example: localhost:3000/user
+
+Body:
 {
-  "id": "xxx",                  // user ID (must be unique)
-  "name": "backend test",       // user name
-  "dob": "",                    // date of birth
-  "address": "",                // user address
-  "description": "",            // user description
-  "createdAt": ""               // user created date
-  "updatedAt": ""               // user updated date
+  "name": "Natasha Romanoff",
+  "dob": "2021-07-09",
+  "address": "Avengers Mansion",
+  "description": "Black Widow"
+}
+
+Return: 
+{
+    "message": "User created successfully",
+    "user": {
+        "id": 2,
+        "name": "Natasha Romanoff",
+        "dob": "2021-07-09",
+        "address": "Avengers Mansion",
+        "description": "Black Widow",
+        "updatedAt": "2021-07-13T20:18:18.061Z",
+        "createdAt": "2021-07-13T20:18:18.061Z"
+    }
 }
 ```
 
-### Functionality
+* **GET: /userid**: Get a user by id
+```bash
+Example: localhost:3000/user1
 
-- The API should follow typical RESTful API design pattern.
-- The data should be saved in the DB.
-- Provide proper API documentation.
-- Proper error handling should be used.
+Return: 
+{
+    "message": "User data returned successfully",
+    "user": {
+        "id": 3,
+        "name": "Loki",
+        "dob": "2021-06-09",
+        "address": "Asgard",
+        "description": "God of cheating and Prince of Asgard",
+        "createdAt": "2021-07-11T14:19:02.000Z",
+        "updatedAt": "2021-07-11T14:19:02.000Z"
+    }
+}
+```
 
-## What We Care About
+* **GET /users**: Get all database users
+```bash
+Example: localhost:3000/users
 
-Use any libraries that you would normally use if this were a real production App. Please note: we're interested in your code & the way you solve the problem, not how well you can use a particular library or feature.
+Return: 
+{
+    "message": "Users returned successfully",
+    "users": [
+        {
+            "id": 3,
+            "name": "Loki",
+            "dob": "2021-06-09",
+            "address": "Asgard",
+            "description": "God of cheating and Prince of Asgard",
+            "createdAt": "2021-07-11T14:19:02.000Z",
+            "updatedAt": "2021-07-11T14:19:02.000Z"
+        }
+     ]
+}
+```
 
-_We're interested in your method and how you approach the problem just as much as we're interested in the end result._
+* **PUT /userid**: Update a user by id
+```bash
+Example: localhost:3000/user2
 
-Here's what you should strive for:
+Body:
+{
+  "name": "Black Widow",
+  "dob": "2021-07-09",
+  "address": "Avengers Mansion",
+  "description": "Natasha Romanoff"
+}
 
-- Good use of current Node.js & Express.js
-- Good use of API design best practices.
-- Solid testing approach.
-- Extensible code.
+Return: 
+{
+    "message": "User updated successfully",
+    "user": {
+        "id": 2,
+        "name": "Black Widow",
+        "dob": "2021-07-09",
+        "address": "Avengers Mansion",
+        "description": "Natasha Romanoff",
+        "updatedAt": "2021-07-13T20:18:18.061Z",
+        "createdAt": "2021-07-13T20:18:18.061Z"
+    }
+}
+```
 
-## Implementation Path:
+* **DELETE: /userid**: Get a user by id
+```bash
+Example: localhost:3000/user2
 
-### Basic Requirements
+Return: 
+{
+    "message": "User deleted successfully",
+    "user": {
+        "id": 2,
+        "name": "Black Widow",
+        "dob": "2021-07-09",
+        "address": "Avengers Mansion",
+        "description": "Natasha Romanoff",
+        "updatedAt": "2021-07-13T20:18:18.061Z",
+        "createdAt": "2021-07-13T20:18:18.061Z"
+    }
+}
+```
+### API return code:
 
-  - Use Node.js `LTS` and any framework of your choice.
-  - Use any SQL DB. MySQL DB is preferred.
-  - Write concise and clear commit messages.
-  - Write clear **documentation** on how it has been designed and how to run the code.
+Status | Message | Description
+------------ | ------------- | -------------
+200 | Success | The requested resource was successfully processed and returned.
+201 | Created | The resource entered was created successfully.
+400 | Bad Request | The request does not conform to the expected format
+500 | Internal Server Error | An error occurred on the server while trying to process the request.
 
-### Bonus
-  - **Use typescript.**
-  - Use of Sequelize ORM (https://sequelize.org/)
-  - Provide proper unit tests.
-  - Add a read only endpoint to fetch location information based off the user's address (use [NASA](https://api.nasa.gov/api.html) or [Mapbox](https://www.mapbox.com/api-documentation/) APIs)
-  - Providing an online demo is welcomed, but not required.
+## :rocket: How to run the code
 
-## Q&A
+Before you begin, you will need to have the following tools installed on your machine: 
+* [Git](https://git-scm.com) 
+* [Node.js](https://nodejs.org/en/)
+* [MySQL](https://www.mysql.com/)
+* In addition, it is good to have an editor to work with the code like [VSCode](https://code.visualstudio.com/)
 
-> Where should I send back the result when I'm done?
+Create and configure the **.env** file like this:
+```bash
+  PORT=3000
 
-Fork this repo and send us a pull request when you think you are done. Or send me the link of the forked repo.
+  DB_HOST=localhost
+  DB_USERNAME=your_user_name
+  DB_DATABASE=your_database_name
+  DB_PASS=you_database_password
+```
+_Remember to configure according to your local MySQL settings._
 
-> What if I have a question?
+On your terminal do the following:
+```bash
+  # Clone this repository
+  $ git clone https://github.com/Nadine-Schneider/node-backend-test.git
 
-Create a new issue in this repo or send me an email.
+  # Install the dependencies
+  $ npm i
+  
+  # Create database
+  $ npx sequelize db:create
+  
+  # Run the migrations
+  $ npx sequelize db:migrate
+  
+  # Run seeders to create initial data
+  $ npx sequelize-cli db:seed:all
+
+  # Run the application in development mode
+  $ npm run dev
+  
+  # You can also run the tests
+  $ npm run test
+```
+Congratulations the server will run on the port set in PORT :tada:
+
+You can try the API with Postman
+
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/c2737faf8ec32af89f88?action=collection%2Fimport)
+
+
+## 🛠 Technologies
+
+The following technologies were used in the construction of the project:
+
+* [NodeJS](https://nodejs.org/en/)
+* [ExpressJS](https://expressjs.com/)
+* [MySQL](https://www.mysql.com/)
+* [Sequelize](https://sequelize.org/)
+* [Jest](https://jestjs.io/)
+
+## **:raising_hand: Author**
+
+<a href="https://github.com/Nadine-Schneider" target="_blank">**Nadine Schneider**</a> 
+
+<td align="center"><img src="https://avatars0.githubusercontent.com/u/38010089?s=300&v=4" width="100px;" alt=""/><br /></td>
+
+## :mailbox_with_no_mail: Contact 
+
+Nadine Schneider - nadine_schneider@hotmail.com 
+
+

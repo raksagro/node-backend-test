@@ -1,0 +1,43 @@
+{
+  "name": "node-backend-test",
+  "version": "1.0.0",
+  "description": "This project consists of a technical test for backend development with NodeJS.",
+  "main": "index.js",
+  "scripts": {
+    "pretest": "cross-env NODE_ENV=test npx sequelize db:migrate",
+    "test": "cross-env NODE_ENV=test npm run test:create && npm run test:update && npm run test:get && npm run test:delete",
+    "test:create": "jest __tests__/tests/create.test.js",
+    "test:update": "jest __tests__/tests/update.test.js",
+    "test:get": "jest __tests__/tests/get.test.js",
+    "test:delete": "jest __tests__/tests/delete.test.js",
+    "posttest": "cross-env NODE_ENV=test npx sequelize db:migrate:undo:all",
+    "dev": "nodemon src/server.js --ignore __tests__"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nadine-Schneider/node-backend-test.git"
+  },
+  "keywords": [],
+  "author": "Nadine Schneider",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Nadine-Schneider/node-backend-test/issues"
+  },
+  "homepage": "https://github.com/Nadine-Schneider/node-backend-test#readme",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "mysql2": "^2.2.5",
+    "sequelize": "^6.6.5"
+  },
+  "devDependencies": {
+    "@jest/test-sequencer": "^27.0.6",
+    "@types/express": "^4.17.13",
+    "cross-env": "^7.0.3",
+    "jest": "^27.0.6",
+    "nodemon": "^2.0.11",
+    "sequelize-cli": "^6.2.0",
+    "sqlite3": "^5.0.2",
+    "supertest": "^6.1.3"
+  }
+}
