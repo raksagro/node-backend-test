@@ -7,7 +7,9 @@ Raks Development Test API
 ## **:computer: About**
 This project consists of a technical test for backend development with NodeJS.
 
-A CRUD API has been built from user data that is persisted in a MySQL database.
+A CRUD API was built to manage user data using MySQL database.
+
+And finally, tests were implemented using Jest.
 
 ### How has been designed 
 The project was divided into simple layers of database, models and controllers:
