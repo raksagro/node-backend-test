@@ -155,7 +155,7 @@ Before you begin, you will need to have the following tools installed on your ma
 * [MySQL](https://www.mysql.com/)
 * In addition, it is good to have an editor to work with the code like [VSCode](https://code.visualstudio.com/)
 
-Configure the **.env** file like this:
+Create and configure the **.env** file like this:
 ```bash
   PORT=3000
 
@@ -179,6 +179,9 @@ On your terminal do the following:
   
   # Run the migrations
   $ npx sequelize db:migrate
+  
+  # Run seeders to create initial data
+  $ npx sequelize-cli db:seed:all
 
   # Run the application in development mode
   $ npm run dev
