@@ -24,7 +24,7 @@ App, routes and server startup configuration files were also generated.
 
 ## ⚙️ NodeJS API
 
-The API has the basic features of creating, editing, reading and deleting.
+The API has the basic features of creating, reading, updating and deleting.
 
 * **POST: /user**: Create a new user 
 ```bash
@@ -147,8 +147,50 @@ Status | Message | Description
 400 | Bad Request | The request does not conform to the expected format
 500 | Internal Server Error | An error occurred on the server while trying to process the request.
 
-### How to run the code
+## :rocket: How to run the code
 
+Before you begin, you will need to have the following tools installed on your machine: 
+* [Git](https://git-scm.com) 
+* [Node.js](https://nodejs.org/en/)
+* [MySQL](https://www.mysql.com/)
+* In addition, it is good to have an editor to work with the code like [VSCode](https://code.visualstudio.com/)
+
+Configure the **.env** file like this:
+```bash
+  PORT=3000
+
+  DB_HOST=localhost
+  DB_USERNAME=your_user_name
+  DB_DATABASE=your_database_name
+  DB_PASS=you_database_password
+```
+_Remember to configure according to your local MySQL settings._
+
+On your terminal do the following:
+```bash
+  # Clone this repository
+  $ git clone https://github.com/Nadine-Schneider/node-backend-test.git
+
+  # Install the dependencies
+  $ npm i
+  
+  # Create database
+  $ npx sequelize db:create
+  
+  # Run the migrations
+  $ npx sequelize db:migrate
+
+  # Run the application in development mode
+  $ npm run dev
+  
+  # You can also run the tests
+  $ npm run test
+```
+Congratulations the server will run on the port set in PORT :tada:
+
+You can try the API with Postman
+
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/c2737faf8ec32af89f88?action=collection%2Fimport)
 
 
 ## 🛠 Technologies
@@ -166,3 +208,9 @@ The following technologies were used in the construction of the project:
 <a href="https://github.com/Nadine-Schneider" target="_blank">**Nadine Schneider**</a> 
 
 <td align="center"><img src="https://avatars0.githubusercontent.com/u/38010089?s=300&v=4" width="100px;" alt=""/><br /></td>
+
+## :mailbox_with_no_mail: Contact 
+
+Nadine Schneider - nadine_schneider@hotmail.com 
+
+
