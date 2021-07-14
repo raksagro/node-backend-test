@@ -19,7 +19,7 @@ describe("Create user", () => {
                         createdAt: new Date().toISOString().substring(0,19).replace('T',' '),
                         updatedAt:new Date().toISOString().substring(0,19).replace('T',' ')
                     })
-        expect(res.status).toBe(200);             
+        expect(res.status).toBe(201);             
     });
 
     it("should return 500 if any data is incorrect", async () => {        

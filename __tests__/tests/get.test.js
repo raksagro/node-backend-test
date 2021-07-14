@@ -10,7 +10,7 @@ describe("Get user", () => {
     it("should get a user if correct id is provided", async () => {      
         const res = await request(app).get('/user1');
         expect(res.status).toBe(200);    
-        expect(res.body.name).toContain("Princess Diana");
+        expect(res.body.user.name).toContain("Princess Diana");
     });
 
     it("should return 400 if incorrect id is provided", async () => {   

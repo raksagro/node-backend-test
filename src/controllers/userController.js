@@ -39,7 +39,7 @@ module.exports = {
         const { name, dob, address, description } = req.body;
         const user = await User.create({ name, dob, address, description });
 
-        return res.status(200).json({ message: 'User created successfully', user });
+        return res.status(201).json({ message: 'User created successfully', user });
     } catch (err){
         return res.status(500).json({ error: err });
     }

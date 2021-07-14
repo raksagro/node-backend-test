@@ -11,12 +11,14 @@ describe("Update user", () => {
             address: 'Justice League Tower',
             description: 'Wonder Woman',
         })
+
+        //console.log(res.user);
         
         expect(res.status).toBe(200);    
-        expect(res.body.name).toBe("Princess Diana");
-        expect(res.body.dob).toBe("2004-07-30");
-        expect(res.body.address).toBe("Justice League Tower");
-        expect(res.body.description).toBe("Wonder Woman");
+        expect(res.body.user.name).toBe("Princess Diana");
+        expect(res.body.user.dob).toBe("2004-07-30");
+        expect(res.body.user.address).toBe("Justice League Tower");
+        expect(res.body.user.description).toBe("Wonder Woman");
     });
 
     it("should return 400 if incorrect id is provided", async () => {      

@@ -1,7 +1,7 @@
 {
   "name": "node-backend-test",
   "version": "1.0.0",
-  "description": "Be sure to read **all** of this document carefully, and follow the guidelines within.",
+  "description": "This project consists of a technical test for backend development with NodeJS.",
   "main": "index.js",
   "scripts": {
     "pretest": "cross-env NODE_ENV=test npx sequelize db:migrate",
@@ -18,7 +18,7 @@
     "url": "git+https://github.com/Nadine-Schneider/node-backend-test.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Nadine Schneider",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Nadine-Schneider/node-backend-test/issues"
